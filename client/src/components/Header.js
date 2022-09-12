@@ -1,16 +1,19 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-
+import Payments from "./Payments";
 class Header extends Component {
   renderContent() {
     switch (this.props.auth) {
       case null:
         return 'null'
       case false:
-        return (<a href="/auth/google">Login With Google</a>)
+        return (<li><a href="/auth/google">Login With Google</a></li>)
       default:
-        return (<a href="/api/logout">Logout With Google</a>)
+        return [
+          <li key="1"><Payments /></li>,
+          <li key="2"><a href="/api/logout">Logout With Google</a></li>
+        ]
     }
   }
   render() {
@@ -24,9 +27,7 @@ class Header extends Component {
             Emaily
           </Link>
           <ul className="right">
-            <li>
-              {this.renderContent()}
-            </li>
+            {this.renderContent()}
           </ul>
         </div>
       </nav>
