@@ -3,9 +3,6 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const cookieSession = require('cookie-session')
 const passport = require('passport')
-const authRoutes = require('./routes/authRoutes')
-const billingRoutes = require('./routes/billingRoutes')
-const surveyRoutes = require('./routes/surveyRoutes')
 const keys = require('./config/keys')
 
 require('./models/User')
@@ -26,9 +23,9 @@ app.use(
 app.use(passport.initialize())
 app.use(passport.session())
 
-authRoutes(app)
-billingRoutes(app)
-surveyRoutes(app)
+require('./routes/authRoutes')(app)
+require('./routes/billingRoutes')(app)
+require('./routes/surveyRoutes')(app)
 
 if (process.env.NODE_ENV === 'production') {
   // serves client in prod - order matters. All statics first, all other - index.html
